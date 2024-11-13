@@ -189,7 +189,8 @@ private void LoginNow() {
             }
             
             if(status > 0){
-                //Login berhasil
+               fungsi.savelog("Login berhasil - Username: " + user + " (Level: " + lv + ")");
+
                 JOptionPane.showMessageDialog(this, "Sukses Login");
                 if(lv.equals("kasir")){
                     this.setVisible(false); 
@@ -205,7 +206,7 @@ private void LoginNow() {
                     O.setVisible(true); 
                 }
             }else {
-                //login gagal
+                 fungsi.savelog("Login gagal - Username: " + user + " (Username/Password tidak valid)");
                 JOptionPane.showMessageDialog(this, "GAGAL Login\n"+"Username/Password tidak valid");
                 pwd.requestFocus();
             }
