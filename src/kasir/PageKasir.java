@@ -51,11 +51,11 @@ public class PageKasir extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        txtProduk = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         lblTotalHarga = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         lbluangKembali = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         tombolCheckout = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
@@ -65,7 +65,7 @@ public class PageKasir extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        jScrollPane3 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -83,17 +83,6 @@ public class PageKasir extends javax.swing.JFrame {
 
         jLabel2.setText("Product");
 
-        txtProduk.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtProdukActionPerformed(evt);
-            }
-        });
-        txtProduk.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtProdukKeyReleased(evt);
-            }
-        });
-
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel4.setText("Total Harga: ");
 
@@ -107,6 +96,21 @@ public class PageKasir extends javax.swing.JFrame {
         lbluangKembali.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lbluangKembali.setForeground(new java.awt.Color(0, 153, 51));
         lbluangKembali.setText("Rp 0,-");
+
+        jTextField1.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
+        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField1KeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField1KeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -128,17 +132,17 @@ public class PageKasir extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtProduk, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20))
+                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(51, 51, 51))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap(40, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtProduk, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(31, 31, 31))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(14, 14, 14)
@@ -255,26 +259,18 @@ public class PageKasir extends javax.swing.JFrame {
 
         getContentPane().add(jPanel2, java.awt.BorderLayout.PAGE_END);
 
+        jTable1.setAutoCreateRowSorter(true);
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "ID", "NAMA PRODUK", "QTY", "HARGA", "TOTAL"
+                "ID", "Nama Produk", "Jumlah", "Harga", "Total"
             }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, true, false, true
-            };
+        ));
+        jScrollPane3.setViewportView(jTable1);
 
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jTable1.setRowHeight(30);
-        jScrollPane1.setViewportView(jTable1);
-
-        getContentPane().add(jScrollPane1, java.awt.BorderLayout.CENTER);
+        getContentPane().add(jScrollPane3, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -283,12 +279,45 @@ public class PageKasir extends javax.swing.JFrame {
         delFromCart();
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void txtProdukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtProdukActionPerformed
-        String val = txtProduk.getText();
+    private void tombolCheckoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tombolCheckoutActionPerformed
+        checkout();
+    }//GEN-LAST:event_tombolCheckoutActionPerformed
+
+    private void txtUangBayarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUangBayarKeyReleased
+        endsKetikUangPembayaran();
+    }//GEN-LAST:event_txtUangBayarKeyReleased
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        this.setVisible(false); 
+        LaporanKeuangan tp = new LaporanKeuangan(this.up);
+        tp.setVisible(true); 
+        tp.setExtendedState(JFrame.MAXIMIZED_BOTH);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        this.setVisible(false); 
+        RiwayatTransaksi tp = new RiwayatTransaksi(this.up);
+        tp.setVisible(true); 
+        tp.setExtendedState(JFrame.MAXIMIZED_BOTH);
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        int response = JOptionPane.showConfirmDialog(this, "Apakah Anda yakin ingin logout?", "Konfirmasi Logout", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+
+        if (response == JOptionPane.YES_OPTION) {
+            this.setVisible(false);
+            Login loginPage = new Login();
+            loginPage.setVisible(true);
+            loginPage.setExtendedState(Frame.MAXIMIZED_BOTH);
+        }
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        String val = jTextField1.getText();
         try {
             if (!val.isEmpty()) {
                 int bayar = Integer.parseInt(val); // Validasi input
-                String TH = jLabel5.getText();
+                String TH = lblTotalHarga.getText();
                 String[] arrTH = TH.split(" ");
                 int totalH = Integer.parseInt(arrTH[1]);
 
@@ -309,7 +338,7 @@ public class PageKasir extends javax.swing.JFrame {
             enableCheckoutBtn(false);
         }
 
-        String kode = txtProduk.getText();
+        String kode = jTextField1.getText();
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
 
         try (Connection K = Koneksi.Go()) {
@@ -400,25 +429,15 @@ public class PageKasir extends javax.swing.JFrame {
                 }
             }
         });
-    }//GEN-LAST:event_txtProdukActionPerformed
+    }//GEN-LAST:event_jTextField1ActionPerformed
 
-    private void tombolCheckoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tombolCheckoutActionPerformed
-        checkout();
-    }//GEN-LAST:event_tombolCheckoutActionPerformed
-
-    private void txtUangBayarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUangBayarKeyReleased
-        endsKetikUangPembayaran();
-    }//GEN-LAST:event_txtUangBayarKeyReleased
-
-    private void txtProdukKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtProdukKeyReleased
-                String val = txtProduk.getText();
+    private void jTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyReleased
+        String val = jTextField1.getText();
         try {
             if (!val.isEmpty()) {
                 // Validasi input
                 int bayar = Integer.parseInt(val);
-
-                // Mendapatkan nilai total harga
-                String TH = jLabel5.getText();
+                String TH = lblTotalHarga.getText();
                 String[] arrTH = TH.split(" ");
 
                 if (arrTH.length > 1) { // Pastikan format teks benar
@@ -446,32 +465,11 @@ public class PageKasir extends javax.swing.JFrame {
             lbluangKembali.setText("Rp 0");
             enableCheckoutBtn(false);
         }
-    }//GEN-LAST:event_txtProdukKeyReleased
+    }//GEN-LAST:event_jTextField1KeyReleased
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        this.setVisible(false); 
-        LaporanKeuangan tp = new LaporanKeuangan(this.up);
-        tp.setVisible(true); 
-        tp.setExtendedState(JFrame.MAXIMIZED_BOTH);
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void jTextField1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyTyped
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        this.setVisible(false); 
-        RiwayatTransaksi tp = new RiwayatTransaksi(this.up);
-        tp.setVisible(true); 
-        tp.setExtendedState(JFrame.MAXIMIZED_BOTH);
-    }//GEN-LAST:event_jButton3ActionPerformed
-
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        int response = JOptionPane.showConfirmDialog(this, "Apakah Anda yakin ingin logout?", "Konfirmasi Logout", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-
-        if (response == JOptionPane.YES_OPTION) {
-            this.setVisible(false);
-            Login loginPage = new Login();
-            loginPage.setVisible(true);
-            loginPage.setExtendedState(Frame.MAXIMIZED_BOTH);
-        }
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_jTextField1KeyTyped
 
     /**
      * @param args the command line arguments
@@ -522,12 +520,12 @@ public class PageKasir extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JScrollPane jScrollPane3;
+    private static javax.swing.JTable jTable1;
+    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel lblTotalHarga;
     private javax.swing.JLabel lbluangKembali;
     private javax.swing.JButton tombolCheckout;
-    private javax.swing.JTextField txtProduk;
     private javax.swing.JTextField txtUangBayar;
     // End of variables declaration//GEN-END:variables
 public void setLabelFullname(String fullname) {
