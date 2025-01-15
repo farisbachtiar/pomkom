@@ -1,9 +1,11 @@
-package App;
+package admin;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
+import App.Koneksi;
+import App.UserProfile;
 import java.awt.Frame;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -16,15 +18,18 @@ import javax.swing.table.DefaultTableModel;
  * @author LENOVO
  */
 public class DataProduk extends javax.swing.JFrame {
-    static DefaultTableModel mod_p;
+    UserProfile up;
     /**
      * Creates new form DataProduk
      */
     public DataProduk() {
         initComponents();
-        mod_p = new DefaultTableModel();
+        
+    }
+    public DataProduk(UserProfile up){
+        initComponents();
+        this.up =up;
         viewDataProduct("");
-        setTable();
     }
 
     /**
@@ -36,30 +41,29 @@ public class DataProduk extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
         jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
-        ky = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
+        ky = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
 
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane2.setViewportView(jTextArea1);
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(102, 102, 255));
+        jPanel1.setBackground(new java.awt.Color(51, 0, 204));
+        jPanel1.setPreferredSize(new java.awt.Dimension(844, 60));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jButton1.setText("BACK");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(54, 30, -1, -1));
 
         jButton2.setText("TAMBAH");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -67,7 +71,7 @@ public class DataProduk extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(194, 30, -1, -1));
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 20, -1, 30));
 
         jButton3.setText("EDIT");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -75,7 +79,7 @@ public class DataProduk extends javax.swing.JFrame {
                 jButton3ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(285, 30, -1, -1));
+        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 20, 80, 30));
 
         jButton4.setText("HAPUS");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
@@ -83,7 +87,7 @@ public class DataProduk extends javax.swing.JFrame {
                 jButton4ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(363, 30, -1, -1));
+        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 20, 80, 30));
 
         jButton5.setText("REFRESH");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
@@ -91,13 +95,7 @@ public class DataProduk extends javax.swing.JFrame {
                 jButton5ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(447, 30, -1, -1));
-
-        ky.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                kyKeyReleased(evt);
-            }
-        });
+        jPanel1.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 20, 80, 30));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/gambar pencarian.jpg"))); // NOI18N
 
@@ -105,20 +103,35 @@ public class DataProduk extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+            .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(ky, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(ky, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(585, 30, -1, -1));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 10, 40, 30));
+
+        ky.setBackground(new java.awt.Color(242, 242, 242));
+        ky.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                kyKeyReleased(evt);
+            }
+        });
+        jPanel1.add(ky, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 10, 204, 34));
+
+        jButton1.setText("Back");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 80, 30));
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.PAGE_START);
 
@@ -130,7 +143,7 @@ public class DataProduk extends javax.swing.JFrame {
                 {null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "NO", "id", "KODE PRODUK", "NAMA PRODUK", "GAMBAR", "KATAGORI", "SUPLIER", "HARGA JUAL", "HARGA BELI", "STOK"
+                "NO", "ID", "KODE PRODUK", "NAMA PRODUK", "GAMBAR", "KATAGORI", "SUPLIER", "HARGA JUAL", "HARGA BELI", "STOK"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
@@ -139,13 +152,6 @@ public class DataProduk extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        PageAdmin AP = new PageAdmin();
-        this.setVisible(false);
-        AP.setVisible(true);
-        AP.setExtendedState(Frame.MAXIMIZED_BOTH);
-    }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         TambahProduk T = new TambahProduk(this, true);
@@ -230,6 +236,14 @@ public class DataProduk extends javax.swing.JFrame {
         viewDataProduct(w);
     }//GEN-LAST:event_kyKeyReleased
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        PageAdmin a = new PageAdmin();
+        a.updateUser(this.up); // Pastikan Anda menyimpan objek userprofile di tampilan user
+        a.setVisible(true);
+        this.dispose();
+        a.setExtendedState(Frame.MAXIMIZED_BOTH);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -275,23 +289,21 @@ public class DataProduk extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private static javax.swing.JTable jTable1;
+    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField ky;
     // End of variables declaration//GEN-END:variables
 public static void viewDataProduct(String where) {
         try {
-            //kode kita
-            for (int i = mod_p.getRowCount()-1; i >=0; i--) {
-                mod_p.removeRow(i);
-            }
-            
-             for (int i = 0; i < mod_p.getRowCount(); i++) {
-                mod_p.removeRow(i);
-            }
-
+            DefaultTableModel m = (DefaultTableModel) jTable1.getModel();
+            m.getDataVector().removeAllElements();
             Connection K = Koneksi.Go();
             Statement S = K.createStatement();
-            String Q = "SELECT * FROM products " + where;
+            String Q = "SELECT p.id, p.product_code, p.product_name, p.product_image, pk.nama ,"
+                    + "s.nama, p.product_price_s, p.product_price_b, p.product_stock FROM products p "
+                    + "JOIN produk_kategori pk ON p.product_category = pk.id "
+                    + "JOIN supplier s ON p.product_supplier = s.id " + where;
 //            System.out.println(Q);
             ResultSet R = S.executeQuery(Q);
             int no = 1;
@@ -300,28 +312,24 @@ public static void viewDataProduct(String where) {
                 String p_code = R.getString("product_code");
                 String p_name = R.getString("product_name");
                 String p_image = R.getString("product_image");
-                String p_category  = R.getString("product_category");
-                String p_supplier = R.getString("product_supplier");
+                String p_category = R.getString("pk.nama");
+                String p_supplier = R.getString("s.nama");
                 String p_price_s = R.getString("product_price_s");
                 String p_price_b = R.getString("product_price_b");
                 String p_stock = R.getString("product_stock");
 
                 Object[] D = {
-                    no, id, p_code,p_name, p_image, 
+                    no, id, p_code, p_name, p_image,
                     p_category, p_supplier, p_price_s, p_price_b, p_stock};
-                mod_p.addRow(D);
+                m.addRow(D);
 
                 no++;
+                
             }
         } catch (SQLException e) {
             //error handling
         }
-    }
-    private void setTable() {
-        mod_p = (DefaultTableModel) jTable1.getModel();
-        jTable1.getColumnModel().getColumn(0).setMinWidth(50);
-        jTable1.getColumnModel().getColumn(0).setMaxWidth(70);
-        
+
         jTable1.getColumnModel().getColumn(1).setMinWidth(0);
         jTable1.getColumnModel().getColumn(1).setMaxWidth(0);
     }

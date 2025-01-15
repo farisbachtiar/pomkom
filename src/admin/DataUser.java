@@ -2,11 +2,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package App;
+package admin;
 
+import App.Koneksi;
+import App.UserProfile;
 import java.awt.Frame;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -17,11 +20,17 @@ import javax.swing.table.DefaultTableModel;
  */
 public class DataUser extends javax.swing.JFrame {
 
+    UserProfile up;
     /**
      * Creates new form DataUser
      */
     public DataUser() {
         initComponents();
+        viewData("");
+    }
+    public DataUser(UserProfile up) {
+        initComponents();
+        this.up = up;
         viewData("");
     }
 
@@ -42,13 +51,14 @@ public class DataUser extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         keyy = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jButton5 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel2.setBackground(new java.awt.Color(102, 102, 102));
+        jPanel2.setBackground(new java.awt.Color(51, 0, 255));
+        jPanel2.setForeground(new java.awt.Color(0, 0, 255));
 
         jButton1.setText("Tambah");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -105,10 +115,10 @@ public class DataUser extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jButton5.setText("BACK");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        jButton6.setText("Back");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                jButton6ActionPerformed(evt);
             }
         });
 
@@ -118,16 +128,16 @@ public class DataUser extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton5)
-                .addGap(18, 18, 18)
+                .addComponent(jButton6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
+                .addGap(43, 43, 43)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(16, 16, 16))
         );
@@ -142,7 +152,7 @@ public class DataUser extends javax.swing.JFrame {
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton5)))
+                        .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap(34, Short.MAX_VALUE))
         );
 
@@ -206,7 +216,7 @@ public class DataUser extends javax.swing.JFrame {
                     Statement S = K.createStatement();
                     S.executeUpdate(Q);
                     viewData(""); 
-                } catch (Exception e) {
+                } catch (SQLException e) {
                 }
             }else {
                 //no
@@ -225,22 +235,23 @@ public class DataUser extends javax.swing.JFrame {
         viewData(""); 
     }//GEN-LAST:event_jButton4ActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        PageAdmin AP = new PageAdmin();
-        this.setVisible(false);
-        AP.setVisible(true);
-        AP.setExtendedState(Frame.MAXIMIZED_BOTH);
-    }//GEN-LAST:event_jButton5ActionPerformed
-
     private void keyyKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_keyyKeyReleased
         String key = keyy.getText();
         String w = "WHERE "
-        + "fullname LIKE '%"+key+"%' "
+        + "nama LIKE '%"+key+"%' "
         + "OR username LIKE '%"+key+"%' "
         + "OR password LIKE '%"+key+"%' "
         + "OR level LIKE '%"+key+"%'";
         viewData(w);
     }//GEN-LAST:event_keyyKeyReleased
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        PageAdmin a = new PageAdmin();
+        a.updateUser(this.up); // Pastikan Anda menyimpan objek userprofile di tampilan user
+        a.setVisible(true);
+        this.dispose();
+        a.setExtendedState(Frame.MAXIMIZED_BOTH);
+    }//GEN-LAST:event_jButton6ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -283,7 +294,7 @@ public class DataUser extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -302,7 +313,7 @@ public static void viewData(String where) {
             int n = 1;
             while (R.next()) {                 
                 int id = R.getInt("id");
-                String fullname = R.getString("fullname");
+                String fullname = R.getString("nama");
                 String username = R.getString("username");
                 String password = R.getString("password");
                 String level = R.getString("level");

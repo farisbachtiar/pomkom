@@ -2,7 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/AWTForms/Dialog.java to edit this template
  */
-package App;
+package admin;
+
+import App.Koneksi;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.sql.Connection;
@@ -10,6 +12,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
@@ -18,7 +21,8 @@ import javax.swing.JOptionPane;
  * @author LENOVO
  */
 public class EditProduk extends java.awt.Dialog {
-     private int Id;
+
+    private int Id;
     private String KP;
     private String NP;
     private String GP;
@@ -27,14 +31,15 @@ public class EditProduk extends java.awt.Dialog {
     private String HJ;
     private String HB;
     private String SP;
+
     /**
      * Creates new form EditProduk
      */
     public EditProduk(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        viewCategory();
-        viewSupplier();
+        viewCategory("produk_kategori", kategorii);
+        viewCategory("supplier", suplierr);
     }
 
     /**
@@ -75,7 +80,7 @@ public class EditProduk extends java.awt.Dialog {
             }
         });
 
-        jPanel2.setBackground(new java.awt.Color(102, 102, 255));
+        jPanel2.setBackground(new java.awt.Color(51, 0, 204));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel2.setText("EDIT PRODUK");
@@ -109,7 +114,7 @@ public class EditProduk extends java.awt.Dialog {
             }
         });
 
-        kategorii.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        kategorii.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Minuman" }));
         kategorii.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 kategoriiActionPerformed(evt);
@@ -130,51 +135,49 @@ public class EditProduk extends java.awt.Dialog {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(16, 16, 16)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(97, 97, 97)
-                        .addComponent(jLabel2))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(16, 16, 16)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel8)
-                            .addComponent(jLabel9)
-                            .addComponent(jLabel10))
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(12, 12, 12)
-                                .addComponent(namaa, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addComponent(gambarr, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton1))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(kodee, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(stokk, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                            .addComponent(suplierr, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(kategorii, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(harjul, javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(harbel, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addComponent(jButton2)))))))
-                .addContainerGap(44, Short.MAX_VALUE))
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel8)
+                    .addComponent(jLabel9)
+                    .addComponent(jLabel10))
+                .addGap(12, 12, 12)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(harbel, javax.swing.GroupLayout.DEFAULT_SIZE, 199, Short.MAX_VALUE)
+                        .addComponent(stokk))
+                    .addComponent(harjul, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(kategorii, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addComponent(gambarr, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(kodee, javax.swing.GroupLayout.DEFAULT_SIZE, 199, Short.MAX_VALUE)
+                        .addComponent(namaa, javax.swing.GroupLayout.DEFAULT_SIZE, 199, Short.MAX_VALUE)
+                        .addComponent(suplierr, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap(47, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(109, 109, 109))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(jButton2)
+                        .addGap(39, 39, 39))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGap(9, 9, 9)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(kodee, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -206,9 +209,9 @@ public class EditProduk extends java.awt.Dialog {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel10)
                     .addComponent(stokk, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(27, 27, 27)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                 .addComponent(jButton2)
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addGap(22, 22, 22))
         );
 
         add(jPanel2, java.awt.BorderLayout.CENTER);
@@ -228,8 +231,8 @@ public class EditProduk extends java.awt.Dialog {
         try {
             Connection l = Koneksi.Go();
             String Q = "UPDATE products "
-                    + "SET product_name = ?, product_image = ?, product_category = ?, product_supplier = ?, "
-                    + "product_price_s = ?, product_price_b = ?, product_stock = ? WHERE product_code = ?";
+                    + "SET product_code = ?,product_name = ?, product_image = ?, product_category = ?, product_supplier = ?, "
+                    + "product_price_s = ?, product_price_b = ?, product_stock = ? WHERE id = ?";
 
             PreparedStatement ps = l.prepareStatement(Q);
             ps.setString(2, namaa.getText());
@@ -244,7 +247,8 @@ public class EditProduk extends java.awt.Dialog {
             ps.setDouble(6, Double.parseDouble(harjul.getText()));
             ps.setDouble(7, Double.parseDouble(harbel.getText()));
             ps.setInt(8, Integer.parseInt(stokk.getText()));
-            ps.setString(1, kodee.getText()); 
+            ps.setString(1, kodee.getText()); // Product_code spesifik yang dipilih untuk diubah
+            ps.setInt(9, getId()); // Product_code spesifik yang dipilih untuk diubah
 
             // Execute the update statement
             int rowsUpdated = ps.executeUpdate();
@@ -258,7 +262,9 @@ public class EditProduk extends java.awt.Dialog {
 
         } catch (NumberFormatException | SQLException e) {
             JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
+            System.out.println(e.getMessage());
         }
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void gambarrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gambarrActionPerformed
@@ -346,7 +352,7 @@ public class EditProduk extends java.awt.Dialog {
     }
 
     public void setId(int id) {
-        this.Id = Id;
+        this.Id = id;
     }
 
     public String getNP() {
@@ -413,35 +419,30 @@ public class EditProduk extends java.awt.Dialog {
         this.SP = SP;
     }
 
-    private void viewCategory() {
+    private void viewCategory(String tableName, JComboBox cmb) {
         try {
-            Connection C = Koneksi.Go();
-            Statement ST = C.createStatement();
-            String Q = "SELECT id,name FROM product_category";
-            ResultSet R = ST.executeQuery(Q);
-            kategorii.removeAllItems();
+            cmb.removeAllItems();
+            Connection K = Koneksi.Go();
+            Statement S = K.createStatement();
+            String Q = "SELECT * FROM " + tableName;
+            ResultSet R = S.executeQuery(Q);
+//            int n = 1;
             while (R.next()) {
                 int id = R.getInt("id");
-                String name = R.getString("name");
-                kategorii.addItem(id + "-" + name);
+                String name = R.getString("nama");
+//                String desc = R.getString("description");
+                cmb.addItem(id + "-" + name);
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
+            System.err.println("ErrorCode: " + e.getMessage());
         }
     }
 
-    private void viewSupplier() {
-        try {
-            Connection C = Koneksi.Go();
-            Statement ST = C.createStatement();
-            String Q = "SELECT id,name FROM supplier";
-            ResultSet R = ST.executeQuery(Q);
-            suplierr.removeAllItems();
-            while (R.next()) {
-                int id = R.getInt("id");
-                String name = R.getString("name");
-                suplierr.addItem(id + "-" + name);
-            }
-        } catch (Exception e) {
+    private void number(KeyEvent evt) {
+        char c = evt.getKeyChar();
+        if (!Character.isDigit(c)) {
+            evt.consume();
         }
     }
+
 }

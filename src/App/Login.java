@@ -4,6 +4,9 @@
  */
 package App;
 
+import owner.PageOwner;
+import kasir.PageKasir;
+import admin.PageAdmin;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -31,7 +34,6 @@ public class Login extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        java.awt.GridBagConstraints gridBagConstraints;
 
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
@@ -49,6 +51,7 @@ public class Login extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(153, 153, 153));
         jPanel1.setLayout(new java.awt.GridBagLayout());
 
+        jPanel2.setBackground(new java.awt.Color(51, 0, 255));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setText("Username:");
@@ -78,24 +81,18 @@ public class Login extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 190, 150, -1));
+        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 190, 150, 40));
 
         jLabel4.setFont(new java.awt.Font("Impact", 0, 24)); // NOI18N
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("SELAMAT DATANG");
-        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 50, 337, -1));
+        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 30, 370, -1));
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/imgbin_cashier-cash-register-png.png"))); // NOI18N
         jLabel5.setText(" ");
-        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(47, 38, 180, -1));
+        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 240, 240));
 
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.ipady = 38;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(123, 160, 156, 218);
-        jPanel1.add(jPanel2, gridBagConstraints);
+        jPanel1.add(jPanel2, new java.awt.GridBagConstraints());
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
 
@@ -175,7 +172,7 @@ private void LoginNow() {
             UserProfile up = new UserProfile();
             while (r.next()) {                 
                 id = r.getInt("id");
-                fn = r.getString("fullname");
+                fn = r.getString("nama");
                 us = r.getString("username");
                 ps = r.getString("password");
                 lv = r.getString("level");
@@ -189,12 +186,11 @@ private void LoginNow() {
             }
             
             if(status > 0){
-               fungsi.savelog("Login berhasil - Username: " + user + " (Level: " + lv + ")");
 
                 JOptionPane.showMessageDialog(this, "Sukses Login");
                 if(lv.equals("kasir")){
                     this.setVisible(false); 
-                    PageKasir K = new PageKasir();
+                    PageKasir K = new PageKasir(up);
                     K.setVisible(true); 
                 }else if(lv.equals("admin")){
                     this.setVisible(false); 
@@ -206,7 +202,6 @@ private void LoginNow() {
                     O.setVisible(true); 
                 }
             }else {
-                 fungsi.savelog("Login gagal - Username: " + user + " (Username/Password tidak valid)");
                 JOptionPane.showMessageDialog(this, "GAGAL Login\n"+"Username/Password tidak valid");
                 pwd.requestFocus();
             }

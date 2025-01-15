@@ -12,7 +12,7 @@ public class Koneksi {
         try {
             MysqlDataSource m = new MysqlDataSource();
             m.setServerName("localhost");
-            m.setDatabaseName("pos"); 
+            m.setDatabaseName("db.kasir"); 
             m.setUser("root"); 
             m.setPassword(""); 
             m.setPortNumber(3306); 

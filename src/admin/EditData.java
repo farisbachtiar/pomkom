@@ -2,21 +2,28 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/AWTForms/Dialog.java to edit this template
  */
-package App;
+package admin;
+import App.Koneksi;
+import java.awt.HeadlessException;
 import java.sql.Connection;
 //import java.sql.Statement;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
 /**
  *
  * @author LENOVO
  */
-public class TambahData extends java.awt.Dialog {
-
+public class EditData extends java.awt.Dialog {
+    private int id;
+    private String FN;
+    private String US;
+    private String PS;
+    private String LV;
     /**
-     * Creates new form TambahData
+     * Creates new form EditData
      */
-    public TambahData(java.awt.Frame parent, boolean modal) {
+    public EditData(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
@@ -46,7 +53,13 @@ public class TambahData extends java.awt.Dialog {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 closeDialog(evt);
             }
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
         });
+
+        jPanel1.setBackground(new java.awt.Color(51, 51, 255));
+        jPanel1.setPreferredSize(new java.awt.Dimension(421, 363));
 
         jLabel1.setText("FULLNAME");
 
@@ -72,49 +85,49 @@ public class TambahData extends java.awt.Dialog {
             }
         });
 
+        jLabel5.setBackground(new java.awt.Color(51, 51, 255));
         jLabel5.setFont(new java.awt.Font("Impact", 0, 36)); // NOI18N
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("TAMBAH DATA");
+        jLabel5.setText("EDIT USER");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnBatal)
-                .addGap(18, 18, 18)
-                .addComponent(btnSimpan)
-                .addGap(60, 60, 60))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGap(26, 26, 26)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(jLabel1)
+                            .addGap(22, 22, 22)
+                            .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(cmbLevel, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtPass, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(btnBatal)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnSimpan)))
+                        .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(jLabel2)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(txtUser, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jLabel3)
-                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(cmbLevel, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtPass, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(23, Short.MAX_VALUE))
+                        .addComponent(jLabel2)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtUser, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(27, 27, 27)
+                .addContainerGap(26, Short.MAX_VALUE)
                 .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -130,11 +143,11 @@ public class TambahData extends java.awt.Dialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cmbLevel, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
-                .addGap(42, 42, 42)
+                .addGap(26, 26, 26)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnBatal, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSimpan, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(29, 29, 29))
+                    .addComponent(btnSimpan, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBatal, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(34, 34, 34))
         );
 
         add(jPanel1, java.awt.BorderLayout.CENTER);
@@ -157,23 +170,23 @@ public class TambahData extends java.awt.Dialog {
         String level = cmbLevel.getSelectedItem().toString();
 
         //pengecekan
-
+        PreparedStatement PS;
         try {
             Connection K = Koneksi.Go();
-            String Q = "INSERT INTO users "
-            + "(fullname,username,password,level) "
-            + "VALUES (?,?,?,?)";
-            PreparedStatement PS = K.prepareStatement(Q);
+            String Q = "UPDATE users "
+            + "SET nama=?,username=?,password=?,level=? WHERE id=?";
+            PS = K.prepareStatement(Q);
             PS.setString(1, name);
             PS.setString(2, user);
             PS.setString(3, pass);
             PS.setString(4, level);
+            PS.setInt(5, getId());
             PS.executeUpdate();
 
             DataUser.viewData("");
-            JOptionPane.showMessageDialog(this, "Data berhasil disimpan");
+            JOptionPane.showMessageDialog(this, "Data berhasil diubah");
             txtName.requestFocus();
-        } catch (Exception e) {
+        } catch (HeadlessException | SQLException e) {
 
         }
 
@@ -184,13 +197,21 @@ public class TambahData extends java.awt.Dialog {
         this.setVisible(false);
     }//GEN-LAST:event_btnBatalActionPerformed
 
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        txtName.setText(getFN()); 
+        txtUser.setText(getUS());
+        txtPass.setText(getPS()); 
+        String LVx = getLV().substring(0, 1).toUpperCase() + getLV().substring(1); 
+        cmbLevel.setSelectedItem(LVx); 
+    }//GEN-LAST:event_formWindowOpened
+
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                TambahData dialog = new TambahData(new java.awt.Frame(), true);
+                EditData dialog = new EditData(new java.awt.Frame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     public void windowClosing(java.awt.event.WindowEvent e) {
                         System.exit(0);
@@ -216,4 +237,44 @@ public class TambahData extends java.awt.Dialog {
     private javax.swing.JPasswordField txtPass;
     private javax.swing.JTextField txtUser;
     // End of variables declaration//GEN-END:variables
+public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getFN() {
+        return FN;
+    }
+    
+
+    public void setFN(String FN) {
+        this.FN = FN;
+    }
+
+    public String getUS() {
+        return US;
+    }
+
+    public void setUS(String US) {
+        this.US = US;
+    }
+
+    public String getPS() {
+        return PS;
+    }
+
+    public void setPS(String PS) {
+        this.PS = PS;
+    }
+
+    public String getLV() {
+        return LV;
+    }
+
+    public void setLV(String LV) {
+        this.LV = LV;
+    }
 }
